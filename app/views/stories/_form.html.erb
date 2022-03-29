@@ -1,14 +1,30 @@
+<% if story.errors.any? %>
+    <div class="notification is-danger">
+        <%= story.errors.full_messages.to_sentence %>
+    </div>
+<% end %>
+
+
 <%= form_for(story) do |form| %>
+    <div class="filed"> 
+        <%= cover(story) %>
+        <%= form.label :cover_image, 'Cover Photo' %>
+        <%= form.file_field :cover_image %>
+    </div>
+
     <div class="filed"> 
         <%= form.label :title, 'Title' %>
         <%= form.text_field :title, class: 'input is-primary is-medium' %>
     </div>
+
     <div class="filed"> 
         <%= form.label :content, 'Content' %>
         <%= form.text_area :content, rows: 10, class: 'textarea is-primary is-medium' %>
     </div>
+
     <div class="field">
-        <%= form.submit 'Save Draft', class: 'button is-medium' %>
-        <%= form.submit 'Launch Post', class: 'button is-medium is-primary' %>
+        <%= form.submit 'Save Draft',name: 'safe_as_draft', class: 'button is-medium' %>
+        <%= form.submit 'Publish Post',name: 'publish', class: 'button is-medium is-primary' if story.may_publish? %>
+        <%= form.submit 'Unpublish Post',name: 'unpublish', class: 'button is-medium is-danger' if story.may_unpublish? %>
     </div>
 <% end %>

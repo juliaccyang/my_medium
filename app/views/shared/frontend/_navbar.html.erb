@@ -27,7 +27,11 @@
           <% if user_signed_in? %> 
 
             <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link"> <%= current_user.email %> </a>
+            
+              <a class="navbar-link"> 
+                <%= avatar(current_user, size: 50) %>
+                <%= current_user.email %> 
+              </a>
     
               <div class="navbar-dropdown">
                 <%= link_to 'New Story', new_story_path, method: 'get', class: 'navbar-item' %>
